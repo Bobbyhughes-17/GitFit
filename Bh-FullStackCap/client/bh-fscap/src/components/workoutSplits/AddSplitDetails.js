@@ -25,7 +25,6 @@ import classnames from "classnames";
 
 export const AddSplitDetails = () => {
   const { splitId } = useParams();
-  console.log("splitId:", splitId);
   const [workoutDays, setWorkoutDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const [selectedMuscleGroup, setSelectedMuscleGroup] = useState({});
@@ -34,7 +33,6 @@ export const AddSplitDetails = () => {
   const [exercises, setExercises] = useState([]);
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("1");
-  const [dayOfWeek, setDayOfWeek] = useState("");
   const [exerciseWeight, setExerciseWeight] = useState("");
   const [orderInDay, setOrderInDay] = useState("");
   const [sets, setSets] = useState("");

@@ -13,10 +13,12 @@ export const WorkoutSplits = () => {
   if (!workoutSplits.length) {
     return <div>Loading...</div>;
   }
-  
 
   return (
     <div className="container mt-4">
+      <Link to="/api/WorkoutSplit/addSplit" className="btn btn-info">
+        add new split
+      </Link>
       <div className="row">
         {workoutSplits.map((split) => (
           <div key={split.id} className="col-md-4 mb-4">
@@ -27,10 +29,16 @@ export const WorkoutSplits = () => {
                 </CardTitle>
               </CardBody>
               <div className="text-center mb-3">
-                <Link to={`/WorkoutSplit/${split.id}`} className="btn btn-primary">
+                <Link
+                  to={`/WorkoutSplit/${split.id}`}
+                  className="btn btn-primary"
+                >
                   View Details
                 </Link>
-                <Link to={`/WorkoutDetails/${split.id}`} className="btn btn-info">
+                <Link
+                  to={`/WorkoutDetails/${split.id}`}
+                  className="btn btn-info"
+                >
                   add
                 </Link>
               </div>

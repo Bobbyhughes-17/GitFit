@@ -51,8 +51,8 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
             {isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/api/WorkoutSplit/addSplit">
-                    Add
+                  <NavLink tag={RRNavLink} to="/">
+                    Workout
                   </NavLink>
                 </NavItem>
                 <NavItem>
