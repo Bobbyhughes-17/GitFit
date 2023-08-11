@@ -16,12 +16,12 @@ export const login = (userObject) => {
     });
 };
 
-export const logout = () => {
-      localStorage.clear()
-};
+export const logout = () => {};
 
 export const getUserStatus = (email) => {
-  return fetch(`${apiUrl}/api/UserProfile/GetByEmail?email=${email}`).then((res) => res.json());
+  return fetch(`${apiUrl}/api/UserProfile/GetByEmail?email=${email}`).then(
+    (res) => res.json()
+  );
 };
 
 export const register = (userObject) => {
@@ -32,25 +32,24 @@ export const register = (userObject) => {
     },
     body: JSON.stringify(userObject),
   })
-  .then((response) => response.json())
-  .then((savedUserProfile) => {
-    localStorage.setItem("userProfile", JSON.stringify(savedUserProfile));
-  });
+    .then((response) => response.json())
+    .then((savedUserProfile) => {
+      localStorage.setItem("userProfile", JSON.stringify(savedUserProfile));
+    });
 };
 
 export const getAllUserProfiles = () => {
-  return fetch(`${apiUrl}/api/UserProfile`)
-  .then((response) => response.json())
+  return fetch(`${apiUrl}/api/UserProfile`).then((response) => response.json());
 };
 
 export const getUserProfileById = (id) => {
   if (!id) {
-    throw new Error('User ID is undefined');
+    throw new Error("User ID is undefined");
   }
-  return fetch(`${apiUrl}/api/UserProfile/${id}`)
-    .then((response) => response.json());
+  return fetch(`${apiUrl}/api/UserProfile/${id}`).then((response) =>
+    response.json()
+  );
 };
-
 
 export const editUserProfile = (userProfile) => {
   return fetch(`${apiUrl}/api/userprofile/edit/${userProfile.id}`, {

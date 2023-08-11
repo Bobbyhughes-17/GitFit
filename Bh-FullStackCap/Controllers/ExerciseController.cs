@@ -54,5 +54,52 @@ namespace Bh_FullStackCap.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateExercise(int id, Exercises exercises)
+        {
+            try
+            {
+                if (id != exercises.Id)
+                {
+                    return BadRequest("Exercise ID mismatch");
+                }
+                var existingExercise = _exerciseRepository.GetExerciseById(id);
+                if (existingExercise == null)
+                {
+                    return NotFound($"Exercise with ID {id} not found");
+                }
+
+                _exerciseRepository.UpdateExercise(exercises);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteExercise(int id)
+        {
+            try
+            {
+                var exercise = _exerciseRepository.GetExerciseById(id);
+                if (exercise == null)
+                {
+                    return NotFound($"Exercise with ID {id} not found");
+                }
+
+                _exerciseRepository.DeleteExercise(id);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
 }

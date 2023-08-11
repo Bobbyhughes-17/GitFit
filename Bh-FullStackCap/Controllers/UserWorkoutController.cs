@@ -3,6 +3,7 @@ using Bh_FullStackCap.Models;
 using Bh_FullStackCap.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bh_FullStackCap.Controllers
 {
@@ -17,21 +18,35 @@ namespace Bh_FullStackCap.Controllers
             _userWorkoutRepository = userWorkoutRepository;
         }
 
-  
 
-        [HttpGet("{id}")]
-        public ActionResult<UserWorkout> GetUserWorkoutById(int id)
+
+
+
+        [HttpGet("user/{userId}")]
+        public IActionResult GetAllUserWorkoutsByUser(int userId)
         {
-            
-           
-                var userWorkout = _userWorkoutRepository.GetUserWorkoutById(id);
-                if (userWorkout == null)
-                    return NotFound();
+            var workouts = _userWorkoutRepository.GetAllUserWorkoutsByUserId(userId);
+            if (workouts == null)
+            {
+                return NotFound();
+            }
 
-                return Ok(userWorkout);
-            
-           
+            return Ok(workouts);
         }
+
+        [HttpGet("user/{userId}/date/{datePerformed}")]
+        public IActionResult GetUserWorkoutByDate(int userId, DateTime datePerformed)
+        {
+            var workouts = _userWorkoutRepository.GetUserWorkoutByDate(userId, datePerformed);
+            if (workouts == null || !workouts.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(workouts);
+        }
+
+
 
         [HttpPost]
         public ActionResult<UserWorkout> AddUserWorkout(UserWorkout userWorkout)
@@ -48,7 +63,7 @@ namespace Bh_FullStackCap.Controllers
         {
             try
             {
-                var existingUserWorkout = _userWorkoutRepository.GetUserWorkoutById(id);
+                var existingUserWorkout = _userWorkoutRepository.GetAllUserWorkoutsByUserId(id);
                 if (existingUserWorkout == null)
                     return NotFound();
 
@@ -66,7 +81,7 @@ namespace Bh_FullStackCap.Controllers
         {
             try
             {
-                var existingUserWorkout = _userWorkoutRepository.GetUserWorkoutById(id);
+                var existingUserWorkout = _userWorkoutRepository.GetAllUserWorkoutsByUserId(id);
                 if (existingUserWorkout == null)
                     return NotFound();
 

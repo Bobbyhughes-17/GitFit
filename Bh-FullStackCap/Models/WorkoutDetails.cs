@@ -11,7 +11,7 @@
         public int Reps { get; set; }
         public float? WeightPercentage { get; set; }
         public string? ExerciseName { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public int MuscleGroupId { get; set; }
      
     

@@ -44,7 +44,7 @@ namespace Bh_FullStackCap.Repositories
                                 MaxDeadlift = DbUtils.GetInt(reader, "MaxDeadlift"),
                                 UserTypeId = DbUtils.GetInt(reader, "UserTypeId"),
                                 UserWeight = DbUtils.GetInt(reader, "UserWeight"),
-                                UserHeight = DbUtils.GetInt(reader, "UserHeight"),
+                                UserHeight = DbUtils.GetInt(reader, "UserHeight"),                       
                                 UserType = new UserType()
                                 {
                                     Id = DbUtils.GetInt(reader, "UserTypeId"),
@@ -221,7 +221,7 @@ namespace Bh_FullStackCap.Repositories
                     cmd.Parameters.AddWithValue("@fullName", userProfile.FullName);
                     cmd.Parameters.AddWithValue("@displayName", userProfile.DisplayName);
                     cmd.Parameters.AddWithValue("@email", userProfile.Email);
-                    cmd.Parameters.AddWithValue("@imageLocation", userProfile.ImageLocation);
+                    cmd.Parameters.AddWithValue("@imageLocation", userProfile.ImageLocation ?? (object)DBNull.Value);
                     cmd.Parameters.AddWithValue("@maxBench", userProfile.MaxBench);
                     cmd.Parameters.AddWithValue("@maxSquat", userProfile.MaxSquat);
                     cmd.Parameters.AddWithValue("@maxDeadlift", userProfile.MaxDeadlift);

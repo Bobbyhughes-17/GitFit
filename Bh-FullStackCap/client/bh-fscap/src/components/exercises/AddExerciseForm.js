@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import "./Muscles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export const AddExerciseForm = ({ muscleGroupId, onAddExercise }) => {
   const [exerciseName, setExerciseName] = useState("");
@@ -17,8 +20,8 @@ export const AddExerciseForm = ({ muscleGroupId, onAddExercise }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className="exercise-form">
+      <div className="input-group">
         <label>Exercise Name:</label>
         <input
           type="text"
@@ -27,7 +30,7 @@ export const AddExerciseForm = ({ muscleGroupId, onAddExercise }) => {
           required
         />
       </div>
-      <div>
+      <div className="input-group">
         <label>Description:</label>
         <input
           type="text"
@@ -36,7 +39,9 @@ export const AddExerciseForm = ({ muscleGroupId, onAddExercise }) => {
           required
         />
       </div>
-      <button type="submit">Add Exercise</button>
+      <button type="submit" className="submit-button">
+        <FontAwesomeIcon icon={faPlus} />
+      </button>
     </form>
   );
 };

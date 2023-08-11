@@ -15,7 +15,7 @@ import {
 import {
   addWorkoutDetails,
   getAllWorkoutSplits,
-  getWorkoutSplitById
+  getWorkoutSplitById,
 } from "../../Managers/WorkoutSplitManager";
 import {
   getAllMuscleGroups,
@@ -40,7 +40,6 @@ export const AddSplitDetails = () => {
   const [workouts, setWorkouts] = useState([]);
   const [splitName, setSplitName] = useState("");
 
-
   const toggle = (tabId) => {
     if (activeTab !== tabId) setActiveTab(tabId);
   };
@@ -56,7 +55,7 @@ export const AddSplitDetails = () => {
         const splits = await getAllWorkoutSplits();
         setWorkoutDays(splits);
         const currentSplit = await getWorkoutSplitById(splitId);
-        setSplitName(currentSplit.splitName)
+        setSplitName(currentSplit.splitName);
       } catch (error) {
         console.error("Error fetching workout splits:", error);
       }
@@ -88,8 +87,8 @@ export const AddSplitDetails = () => {
       sets,
       reps,
       weightPercentage: exerciseWeight,
-      exerciseName: selectedExercise.exerciseName,
-      description: selectedExercise.description,
+      exerciseName: selectedExercise?.exerciseName,
+      description: selectedExercise?.description,
       muscleGroupId: selectedMuscleGroup.id,
     };
 
@@ -128,9 +127,7 @@ export const AddSplitDetails = () => {
           return (
             <TabPane tabId={`${index + 1}`}>
               <FormGroup>
-                <Label for={`muscleGroupDropdown_${day.id}`}>
-                  Select Muscle Group
-                </Label>
+                <Label for={`muscleGroupDropdown_${day.id}`}></Label>
                 <Input
                   type="select"
                   name={`muscleGroupDropdown_${day.id}`}
@@ -162,9 +159,7 @@ export const AddSplitDetails = () => {
               </FormGroup>
 
               <FormGroup>
-                <Label for={`exerciseDropdown_${day.id}`}>
-                  Select Exercise
-                </Label>
+                <Label for={`exerciseDropdown_${day.id}`}></Label>
                 <Input
                   type="select"
                   name={`exerciseDropdown_${day.id}`}
@@ -195,17 +190,6 @@ export const AddSplitDetails = () => {
               </FormGroup>
 
               <FormGroup>
-                <Label for={`weightInput_${day.id}`}>Weight Percentage</Label>
-                <Input
-                  type="number"
-                  name={`weightInput_${day.id}`}
-                  id={`weightInput_${day.id}`}
-                  value={exerciseWeight}
-                  onChange={(e) => setExerciseWeight(e.target.value)}
-                />
-              </FormGroup>
-
-              <FormGroup>
                 <Label for={`orderInDayInput_${day.id}`}>Order In Day</Label>
                 <Input
                   type="number"
@@ -216,6 +200,16 @@ export const AddSplitDetails = () => {
                 />
               </FormGroup>
 
+              <FormGroup>
+                <Label for={`weightInput_${day.id}`}>Weight</Label>
+                <Input
+                  type="number"
+                  name={`weightInput_${day.id}`}
+                  id={`weightInput_${day.id}`}
+                  value={exerciseWeight}
+                  onChange={(e) => setExerciseWeight(e.target.value)}
+                />
+              </FormGroup>
               <FormGroup>
                 <Label for={`setsInput_${day.id}`}>Sets</Label>
                 <Input
@@ -241,13 +235,28 @@ export const AddSplitDetails = () => {
               <Button color="primary" onClick={handleAddWorkout}>
                 Add Workout
               </Button>
-              <ul>
-                {workouts.map((workout, index) => (
-                  <li key={index}>
-                    {`Day ${workout.dayOfWeek}, Exercise ${workout.exerciseName}, sets: ${workout.sets}, reps: ${workout.reps}`}
-                  </li>
-                ))}
-              </ul>
+              <table className="workout-table">
+                <thead>
+                  <tr>
+                    <th>Day</th>
+                    <th>Order in Day</th>
+                    <th>Exercise</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {workouts.map((workout, index) => (
+                    <tr key={index}>
+                      <td>{workout.dayOfWeek}</td>
+                      <td>{workout.orderInDay}</td>
+                      <td>{workout.exerciseName}</td>
+                      <td>{workout.sets}</td>
+                      <td>{workout.reps}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </TabPane>
           );
         })}

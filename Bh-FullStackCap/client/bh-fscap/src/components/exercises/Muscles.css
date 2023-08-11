@@ -1,0 +1,85 @@
+.muscle-groups-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.muscle-groups-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.muscle-group-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  color: black;
+  height: 80px;
+}
+
+.muscle-group-card:hover {
+  background-color: #ced4da;
+}
+
+.exercises-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.exercise-card {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.exercise-card:hover {
+  background-color: #ced4da;
+}
+
+.exercise-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.custom-modal .form-input {
+  border: 2px solid blue !important;
+}
+.custom-modal .form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

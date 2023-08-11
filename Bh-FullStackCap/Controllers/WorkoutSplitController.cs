@@ -23,6 +23,13 @@ namespace Bh_FullStackCap.Controllers
             List<WorkoutSplit> workoutSplits = _workoutSplitRepository.GetAllWorkoutSplits();
             return Ok(workoutSplits);
         }
+        [HttpGet("userWorkoutSplits/{userId}")]
+        public ActionResult<IEnumerable<WorkoutSplit>> GetUserWorkoutSplitsByUserId(int userId)
+        {
+            var workoutSplits = _workoutSplitRepository.GetUserWorkoutSplitsByUserId(userId);
+            return Ok(workoutSplits);
+        }
+
 
         [HttpGet("{id}")]
         public ActionResult<WorkoutSplit> GetWorkoutSplitById(int id)

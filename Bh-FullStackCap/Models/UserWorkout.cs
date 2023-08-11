@@ -12,6 +12,8 @@
         public int Reps { get; set; }
         public float? Weight { get; set; }
         public float? WeightPercentage { get; set; }
-      
+        public string? SplitName { get; set; }
+        public string? ExerciseName { get; set; }
+
     }
 }

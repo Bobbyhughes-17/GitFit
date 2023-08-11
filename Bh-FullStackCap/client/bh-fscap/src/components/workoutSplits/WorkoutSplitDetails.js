@@ -13,9 +13,17 @@ import {
 } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { deleteWorkoutDetails } from "../../Managers/WorkoutSplitManager";
+import "./Split.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faTrashAlt,
+  faDumbbell,
+  faCalendarDay,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const WorkoutSplitDetails = () => {
-  const [workoutSplit, setWorkoutSplit] = useState(null);
+  const [workoutSplit, setWorkoutSplit] = useState({ workoutDetails: [] });
   const [activeTab, setActiveTab] = useState("1");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -26,10 +34,11 @@ export const WorkoutSplitDetails = () => {
   }, [id]);
 
   useEffect(() => {
+    console.log(workoutSplit);
     // Group workout details by day of week to create tabs for each day
     const groupedDetails = {};
     if (workoutSplit) {
-      workoutSplit.workoutDetails.forEach((exercise) => {
+      workoutSplit?.workoutDetails.forEach((exercise) => {
         if (!groupedDetails[exercise.dayOfWeek]) {
           groupedDetails[exercise.dayOfWeek] = [];
         }
@@ -53,12 +62,13 @@ export const WorkoutSplitDetails = () => {
     navigate("/workoutSplit");
   };
 
-  const handleDeleteWorkoutDetails = () => {
-    const workoutDetailId = workoutSplit.id;
-    deleteWorkoutDetails(workoutDetailId)
+  const handleDeleteWorkoutDetails = (exerciseId) => {
+    deleteWorkoutDetails(exerciseId)
       .then(() => {
         const updatedGroupedWorkoutDetails = { ...groupedWorkoutDetails };
-        delete updatedGroupedWorkoutDetails[activeTab];
+        updatedGroupedWorkoutDetails[activeTab] = updatedGroupedWorkoutDetails[
+          activeTab
+        ].filter((exercise) => exercise.id !== exerciseId);
         setGroupedWorkoutDetails(updatedGroupedWorkoutDetails);
         console.log("Workout detail deleted successfully");
       })
@@ -68,18 +78,28 @@ export const WorkoutSplitDetails = () => {
   };
 
   return (
-    <div className="card-container">
+    <div className="details-card-container">
       <Card className="m-4 text-center wo-profile-card">
         <CardBody>
-          <Button onClick={handleGoBack}>Close</Button>
+          <Button onClick={handleGoBack}>
+            <FontAwesomeIcon icon={faArrowLeft} />
+          </Button>
           <div>
-            <strong>Split Name:</strong> {workoutSplit.splitName}
+            <strong>
+              <FontAwesomeIcon icon={faDumbbell} />{" "}
+            </strong>{" "}
+            {workoutSplit.splitName}
             <br />
-            <strong>Days Per Week:</strong> {workoutSplit.daysPerWeek}
+            <strong>
+              <FontAwesomeIcon icon={faCalendarDay} /> Days Per Week:
+            </strong>{" "}
+            {workoutSplit.daysPerWeek}
           </div>
           <hr />
           <div>
-            <h5>Workout Details:</h5>
+            <h5>
+              <FontAwesomeIcon icon={faDumbbell} />{" "}
+            </h5>
             <Nav tabs>
               {Object.keys(groupedWorkoutDetails).map((day) => (
                 <NavItem key={day}>
@@ -97,20 +117,16 @@ export const WorkoutSplitDetails = () => {
               {Object.keys(groupedWorkoutDetails).map((day) => (
                 <TabPane key={day} tabId={day}>
                   {groupedWorkoutDetails[day].map((exercise) => (
-                    <div key={exercise.id}>
-                      <strong>Exercise Name:</strong> {exercise.exerciseName}
+                    <div key={exercise.id} className="exercise-details">
+                      <strong>Exercise:</strong> {exercise.exerciseName}
                       <br />
                       <strong>Description:</strong> {exercise.description}
-                      <br />
-                      <strong>Sets:</strong> {exercise.sets}
-                      <br />
-                      <strong>Reps:</strong> {exercise.reps}
-                      <br />
+                      <br></br>
                       <Button
                         color="danger"
                         onClick={() => handleDeleteWorkoutDetails(exercise.id)}
                       >
-                        Delete Exercise
+                        <FontAwesomeIcon icon={faTrashAlt} />
                       </Button>
                       <hr />
                     </div>

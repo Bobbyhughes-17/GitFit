@@ -11,29 +11,33 @@ import {
   NavLink,
 } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./header.css";
 
 export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("userProfile");
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("userProfile");
-    if (isLoggedIn && storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
+    if (isLoggedIn) {
+      const storedUser = localStorage.getItem("userProfile");
+      if (storedUser) {
+        setCurrentUser(JSON.parse(storedUser));
+      }
+    } else {
+      setCurrentUser(null);
     }
   }, [isLoggedIn]);
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const handleLogout = () => {
+    logout();
+    localStorage.removeItem("userProfile");
+    setIsLoggedIn(false);
+  };
+
   return (
-    <div>
+    <div className="headerContainer">
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={RRNavLink}>GitFit</NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -51,11 +55,6 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
             {isLoggedIn && (
               <>
                 <NavItem>
-                  <NavLink tag={RRNavLink} to="/">
-                    Workout
-                  </NavLink>
-                </NavItem>
-                <NavItem>
                   <NavLink tag={RRNavLink} to="/WorkoutSplit">
                     Splits
                   </NavLink>
@@ -71,10 +70,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
                     aria-current="page"
                     className="nav-link"
                     style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      logout();
-                      setIsLoggedIn(false);
-                    }}
+                    onClick={() => handleLogout()}
                   >
                     Logout
                   </a>

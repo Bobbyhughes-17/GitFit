@@ -3,10 +3,18 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 
-export default function Authorize({ setIsLoggedIn }) {
+export default function Authorize({ setIsLoggedIn, setLoggedInUser }) {
   return (
     <Routes>
-      <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+      <Route
+        path="/login"
+        element={
+          <Login
+            setIsLoggedIn={setIsLoggedIn}
+            setLoggedInUser={setLoggedInUser}
+          />
+        }
+      />
       <Route
         path="/register"
         element={<Register setIsLoggedIn={setIsLoggedIn} />}

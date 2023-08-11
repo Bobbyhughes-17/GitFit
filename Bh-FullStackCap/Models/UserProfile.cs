@@ -33,6 +33,7 @@ namespace Bh_FullStackCap.Models
         public int? MaxDeadlift { get; set; }
         public int? UserWeight { get; set; }
         public int? UserHeight { get; set; }
+  
 
 
     }

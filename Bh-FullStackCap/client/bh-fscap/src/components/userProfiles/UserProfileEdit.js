@@ -5,8 +5,14 @@ import {
   editUserProfile,
   getUserProfileById,
 } from "../../Managers/UserProfileManager";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSave,
+  faUserEdit,
+  faDumbbell,
+} from "@fortawesome/free-solid-svg-icons";
 
-export const UserProfileEdit = () => {
+export const UserProfileEdit = (props) => {
   const [editedUserProfile, setEditedUserProfile] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,9 +31,9 @@ export const UserProfileEdit = () => {
   };
 
   const handleSave = () => {
-    editUserProfile(editedUserProfile).then(() =>
-      navigate(`/userprofile/${editedUserProfile.id}`)
-    );
+    editUserProfile(editedUserProfile).then(() => {
+      if (props.onSaved) props.onSaved(); // Notify parent component of save completion
+    });
   };
 
   if (!editedUserProfile) {
@@ -37,7 +43,9 @@ export const UserProfileEdit = () => {
   return (
     <Form>
       <FormGroup>
-        <Label for="displayName">Display Name</Label>
+        <Label for="displayName">
+          <FontAwesomeIcon icon={faUserEdit} /> Display Name
+        </Label>
         <Input
           type="text"
           id="displayName"
@@ -46,7 +54,9 @@ export const UserProfileEdit = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="name">Name</Label>
+        <Label for="name">
+          <FontAwesomeIcon icon={faUserEdit} /> Name
+        </Label>
         <Input
           type="text"
           id="name"
@@ -55,7 +65,9 @@ export const UserProfileEdit = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="maxBench">Max Bench </Label>
+        <Label for="maxBench">
+          <FontAwesomeIcon icon={faDumbbell} /> Max Bench
+        </Label>
         <Input
           type="text"
           id="maxBench"
@@ -64,7 +76,9 @@ export const UserProfileEdit = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="maxSquat">Max Squat</Label>
+        <Label for="maxSquat">
+          <FontAwesomeIcon icon={faDumbbell} /> Max Squat
+        </Label>
         <Input
           type="text"
           id="maxSquat"
@@ -73,7 +87,9 @@ export const UserProfileEdit = () => {
         />
       </FormGroup>
       <FormGroup>
-        <Label for="maxDeadlift">Max Deadlift</Label>
+        <Label for="maxDeadlift">
+          <FontAwesomeIcon icon={faDumbbell} /> Max Deadlift
+        </Label>
         <Input
           type="text"
           id="maxDeadlift"
@@ -82,7 +98,9 @@ export const UserProfileEdit = () => {
         />
       </FormGroup>
 
-      <Button onClick={handleSave}>Save</Button>
+      <Button onClick={handleSave}>
+        <FontAwesomeIcon icon={faSave} />
+      </Button>
     </Form>
   );
 };

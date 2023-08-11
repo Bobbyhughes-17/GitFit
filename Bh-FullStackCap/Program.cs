@@ -17,6 +17,7 @@ namespace Bh_FullStackCap
             builder.Services.AddTransient<IUserWorkoutRepository, UserWorkoutRepository>();
             builder.Services.AddTransient<IMuscleGroupRepository, MuscleGroupRepository>();
             builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>();
+            builder.Services.AddTransient<IUserSplitRepository, UserSplitRepository>();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

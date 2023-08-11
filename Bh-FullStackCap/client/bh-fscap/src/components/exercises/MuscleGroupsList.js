@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllMuscleGroups } from "../../Managers/ExerciseManager";
-
+import "./Muscles.css";
 const MuscleGroupsList = () => {
   const [muscleGroups, setMuscleGroups] = useState([]);
 
@@ -10,17 +10,19 @@ const MuscleGroupsList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="muscle-groups-container">
       <h2>Muscle Groups</h2>
-      <ul>
+      <div className="muscle-groups-grid">
         {muscleGroups.map((muscleGroup) => (
-          <li key={muscleGroup.id}>
-            <Link to={`/exercise/${muscleGroup.id}`}>
-              {muscleGroup.muscleGroupName}
-            </Link>
-          </li>
+          <Link
+            to={`/exercise/${muscleGroup.id}`}
+            key={muscleGroup.id}
+            className="muscle-group-card"
+          >
+            <span>{muscleGroup.muscleGroupName}</span>
+          </Link>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
